@@ -1,6 +1,7 @@
 package org.t246osslab.easybuggy.troubles;
 
 import java.io.BufferedReader;
+import io.whitesource.cure.Encoder;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
@@ -110,7 +111,8 @@ public class EndlessWaitingServlet extends AbstractServlet {
             fileWriter.close();
             if (!osName.toLowerCase().startsWith("windows")) {
                 Runtime runtime = Runtime.getRuntime();
-                runtime.exec("chmod 777 " + batFile.getAbsolutePath());
+                //TODO: add non alphaNumeric chars to be ignored
+                runtime.exec("chmod 777 " + Encoder.forOsCommand(batFile.getAbsolutePath(), new char[] {}));
             }
         } catch (Exception e) {
             log.error("Exception occurs: ", e);
